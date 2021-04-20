@@ -13,10 +13,11 @@ class BugdetController {
   // Create Budget Income
   static async createBudgetIncome(req, res) {
     try {
-      const { income } = req.body
+      const { income, detail } = req.body
       if (!income) throw { name: 'error_400_body_invalid' }
       const budget = await Budget.createBudgetIncome({
         income,
+        detail
       })
       res.status(201).json(budget.ops[0])
     } catch(err) {
@@ -26,10 +27,11 @@ class BugdetController {
   // Create Budget Expense
   static async createBudgetExpense(req, res) {
     try {
-      const { expense } = req.body
+      const { expense, detail } = req.body
       if (!expense) throw { name: 'error_400_body_invalid' }
       const budget = await Budget.createBudgetExpense({
         expense,
+        detail
       })
       res.status(201).json(budget.ops[0])
     } catch(err) {
