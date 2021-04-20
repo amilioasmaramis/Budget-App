@@ -1,26 +1,33 @@
 const { MongoClient } = require('mongodb')
+const { DATABASE_NAME, DATABASE_URI } = require('./constants')
 
+const uri = DATABASE_URI
+const client = new MongoClient(uri, { useUnifiedTopology: true })
 let database = null
 
 async function connect() {
   try {
-    const uri = 'mongodb://localhost:27017'   
-    const client = new MongoClient(uri, { useUnifiedTopology: true })
     await client.connect()
-
-    const db = client.db('budget-app') // database yg dituju
-
+    let databaseName = DATABASE_NAME
+    const db = client.db(databaseName)
     database = db
-    return db
-    // return Promise.resolve.database
-  } catch(err) {
+
+    return database
+  } catch (err) {
     console.log(err)
   }
 }
 
-module.exports = { 
+function getDatabase() {
+  return database
+}
+
+async function close() {
+  await client.close()
+}
+
+module.exports = {
   connect,
-  getDatabase() {
-    return database
-  }
+  getDatabase,
+  close,
 }

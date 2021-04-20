@@ -1,11 +1,10 @@
-// const { ObjectID } = require('bson')
-const { ObjectID } = require('mongodb')
+const { ObjectID } = require('bson')
 const { getDatabase } = require('../config/mongodb')
 
 class Budget {
   // Read Budget Data
-  static readBudget() {
-    return getDatabase().collection('Budgets').find().toArray()
+  static readBudget(id) {
+    return getDatabase().collection('Budgets').find({ UserId: id.UserId }).toArray()
   }  
   // Create budget income
   static createBudgetIncome(budget){
