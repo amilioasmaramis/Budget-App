@@ -1,62 +1,119 @@
 import axios from '../config-api/axios'
 
-export function setTransactions(payload) {
-  return { type: 'TRANSACTIONS/SET_TRANSACTIONS', payload }
+export function setIsLogin(payload) {
+  return { type: 'LOGIN/SET_SETISLOGIN', payload }
+}
+
+export function setAccessToken(payload) {
+  return { type: 'ACCESS_TOKEN/SET_ACCESS_TOKEN', payload }
 }
 
 export function setBudgets(payload) {
   return { type: 'BUDGET/STET_BUDGE', payload }
 }
 
+
+export function registerUser(payload) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        url: '/users/register',
+        method: 'POST',
+        data: {
+          username: payload.username,
+          email: payload.email,
+          password: payload.password
+        }
+      })
+    } catch(err) {
+      console.log(err.response.data, 'catch error register')
+    }
+  }
+}
+
+export function loginUser(payload) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        url: '/users/login',
+        method: 'POST',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+      dispatch(setAccessToken(data.access_token))
+      localStorage.setItem('username', data.username)
+      localStorage.setItem('access_token', data.access_token)
+      dispatch(setIsLogin(true))
+    } catch(err) {
+      console.log(err.response.data, 'catch error login')
+    }
+  }
+}
+
 export function fetchBudgets(payload) {
   return async (dispatch) => {
     try {
       const response = await axios({
-        method: 'get',
-        url: `/`
+        url: '/budget/',
+        method: 'GET',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
       })
-      const data = await response.json()
-      dispatch(setBudgets(data.data))
+      dispatch(setBudgets(response.data.budget))
     } catch(err) {
-      console.log(err)
+      console.log(err.response)
     }
   }
 }
 
 export function addIncome(payload) {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       console.log('Post income to server')
-      let { income } = getState()
+      console.log(payload)
 
       const response = await axios({
-        method: 'post',
-        url: `/income`,
-        data: income,
+        url: '/budget/income',
+        method: 'POST',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          detail: payload.detail,
+          income: Number(payload.amount)
+        },
       })
       console.log(response, 'response dari server, post transactions')
-      dispatch(setTransactions(response))
+      dispatch(fetchBudgets())
     } catch (err) {
-      console.log(err)
+      console.log(err.response.data)
     }
   }
 }
 
 export function addExpense(payload) {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
-      console.log('Post income to server')
-      let { expense } = getState()
-
+      console.log('Post expense to server')
+      
       const response = await axios({
-        method: 'post',
-        url: `/expense`,
-        data: expense,
+        url: '/budget/expense',
+        method: 'POST',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          detail: payload.detail,
+          expense: Number(payload.amount)
+        },
       })
       console.log(response, 'response dari server, post transactions')
-      dispatch(setTransactions(response))
+      dispatch(fetchBudgets())
     } catch (err) {
-      console.log(err)
+      console.log(err.response.data)
     }
   }
 }

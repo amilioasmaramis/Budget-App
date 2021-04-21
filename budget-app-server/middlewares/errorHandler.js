@@ -30,7 +30,13 @@ module.exports = (err, req, res, next) => {
       errorCode = 'Validation error'
       message = 'Please enter email and password'
       break
-
+    
+    case 'error_400_username_email_password_empty':
+      statusCode = 400
+      errorCode = 'Validation error'
+      message = 'Please enter username, email and password'
+      break
+      
     case 'error_403_user_forbidden':
       statusCode = 403
       errorCode = 'Forbidden access'

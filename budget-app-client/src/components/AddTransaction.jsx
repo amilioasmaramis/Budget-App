@@ -1,55 +1,55 @@
 import React, {useState, useContext} from 'react'
-// import { GlobalContext } from '../context/GlobalState';
+import { useDispatch } from 'react-redux';
 import { addIncome, addExpense } from '../store/actions'
 
-export const AddTransaction = () => {
+export default function AddTransaction() {
   const [detail, setDetail] = useState('');
   const [amount, setAmount] = useState(0);
   const [option, setOption] = useState('')
 
-  // const { addTransaction } = useContext(GlobalContext);
+  const dispatch = useDispatch()
 
-  const onSubmit = e => {
-    e.preventDefault();
-
-    const newTransaction = {
-      id: Math.floor(Math.random() * 100000000),
-      detail,
-      amount: +amount
+  const onSubmit = (e) => {
+    console.log(option, detail, amount, 'dari component <<<<<')
+    e.preventDefault()
+    if (option == "Income") {
+      dispatch(addIncome({ detail, amount }))
+      setOption('')
+      setDetail('')
+      setAmount(0)
+    } else {
+      dispatch(addExpense({ detail, amount }))
+      setOption('')
+      setDetail('')
+      setAmount(0)
     }
-
-    // addTransaction(newTransaction);
   }
 
   return (
     <>
       <h3>Add new transaction</h3>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={(e) => onSubmit(e)}>
         <div className="form-control">
-          <select name="cars" id="cars">
-            <option 
-              value={option}
-              onChange={(e) => setDetail(e.target.value)}>
-                Income
+          <select
+            className="select-option"
+            value={option}
+            onChange={(e) => setOption(e.target.value)}
+          >
+            <option disabled value="">
+              Select Option
             </option>
-            <option 
-              value={detail}
-              onChange={(e) => setDetail(e.target.value)}>
-                Expense
-            </option>
+            <option>Income</option>
+            <option>Expense</option>
           </select>
         </div>
       
         <div className="form-control">
-          <label htmlFor="text">Text</label>
-          <input type="text" value={detail} onChange={(e) => setDetail(e.target.value)} placeholder="Enter text..." />
+          <label htmlFor="text">Description</label>
+          <input type="text" value={detail} onChange={(e) => setDetail(e.target.value)} placeholder="Enter description..." />
         </div>
 
         <div className="form-control">
-          <label htmlFor="amount"
-            >Amount <br />
-            (negative - expense, positive - income)</label
-          >
+          <label htmlFor="amount">Amount</label>
           <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount..." />
         </div>
         <button className="btn">Add transaction</button>

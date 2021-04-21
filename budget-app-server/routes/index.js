@@ -3,6 +3,6 @@ const BudgeRoute = require('./budgetRoute')
 const UserRoute = require('./userRoute')
 
 router.use('/budget', BudgeRoute)
-router.use('/user', UserRoute)
+router.use('/users', UserRoute)
 
 module.exports = router

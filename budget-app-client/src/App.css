@@ -9,7 +9,8 @@
 }
 
 body {
-  background-color: #f7f7f7;
+  background: #f6f5f7;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,6 +78,15 @@ label {
   margin: 10px 0;
 }
 
+.select-option {
+  border: 1px solid #dedede;
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
 input[type='text'],
 input[type='number'] {
   border: 1px solid #dedede;
@@ -109,6 +119,11 @@ input[type='number'] {
   list-style-type: none;
   padding: 0;
   margin-bottom: 40px;
+  /* background-color: lightblue;
+  height: 40px;
+  width: 200px; */
+  height: 150px;
+  overflow-y: scroll;
 }
 
 .list li {

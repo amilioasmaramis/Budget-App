@@ -7,6 +7,7 @@ class BugdetController {
       const budget = await Budget.readBudget({
         UserId: req.user._id
       })
+      console.log(budget, 'Fetch data Budget from server')
       res.status(200).json({budget})
     } catch(err) {
       next(err)
@@ -21,8 +22,10 @@ class BugdetController {
       const budget = await Budget.createBudgetIncome({
         UserId: req.user._id,
         income,
-        detail
+        detail,
+        createdAt: new Date(),
       })
+      console.log(budget.ops[0], 'Create Budget Income from server controller')
       res.status(201).json(budget.ops[0])
     } catch(err) {
       next(err)
@@ -37,8 +40,10 @@ class BugdetController {
       const budget = await Budget.createBudgetExpense({
         UserId: req.user._id,
         expense,
-        detail
+        detail,
+        createdAt: new Date(),
       })
+      console.log(budget.ops[0], 'Create Budget Expense from server controller')
       res.status(201).json(budget.ops[0])
     } catch(err) {
       next(err)

@@ -14,7 +14,7 @@ List of available endpoints:
 - `POST /budget/income`
 - `POST /budget/expense`
 
-### POST /users/register`
+### `POST /users/register`
 
 > Register User
 
@@ -24,6 +24,7 @@ Request:
 
 ```json
 {
+  "username": "string",
   "email": "string",
   "password": "string"
 }
@@ -38,6 +39,7 @@ Response:
 ```json
 {
   "user": {
+    "username": "string",
     "email": "string",
     "password": "string",
     "_id": "string-id"
@@ -50,10 +52,11 @@ Response:
 
   * **Code:** 201 CREATED<br />
     **Content:** `{
-      "user": {
-          "email": "user3@mail.com",
-          "password": "$2a$10$9YP4.hOJTVGcKkowZTnwAu0vItPIOp0el0HlSk3OISZv8dqkKsye.",
-          "_id": "607f348f30365837302225ec"
+        "user": {
+          "username": "test",
+          "email": "test@mail.com",
+          "password": "$2a$10$C74Ey2yYfMdlOTa7DXuMK.uJCTztaFbXoSfAjkrM40lToTc/vLhLi",
+          "_id": "60803b1f1a34192140d9a646"
       },
       "message": "Add new User successfully"
     }`
@@ -63,7 +66,7 @@ Response:
   * **Code:** 400 BAD REQUEST <br />
     **Content:** `{
       "errorCode": "Validation error",
-      "message": "Please enter email and password"
+      "message": "Please enter username, email and password"
     }`
 
   OR
@@ -74,7 +77,7 @@ Response:
         "message": "Unexpected error."
     }`
 
-### POST /users/login`
+### `POST /users/login`
 
 > Login User
 
@@ -106,8 +109,9 @@ Response:
 
   * **Code:** 201 CREATED<br />
     **Content:** `{
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDdmMGJiZmI4NDBmOTJjODQ0NzNlMWYiLCJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJpYXQiOjE2MTg5NDk0NjN9.vLBtLB8sE_eHXcRxO4wuEF9rJ2xVNL3C2T5aiDa3Qxk",
-      "id": "607f0bbfb840f92c84473e1f"
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDgwM2IxZjFhMzQxOTIxNDBkOWE2NDYiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE2MTkwMjM5NTF9.DUqmaiDpave2Wi3HUkA6QAMxuUM6KP-obD_alXJreVg",
+      "id": "60803b1f1a34192140d9a646",
+      "username": "test"
     }`
  
 * **Error Response:**
@@ -154,7 +158,8 @@ Response:
       "_id": "string-id",
       "UserId": "string-id",
       "income": "integer",
-      "detail": "string"
+      "detail": "string",
+      "createdAt": "date"
     },
     ....
 }
@@ -165,16 +170,18 @@ Response:
     **Content:** `{
       "budget": [
         {
-            "_id": "607f1ea37a427b09143305c8",
-            "UserId": "607f0bbfb840f92c84473e1f",
-            "income": 1000000,
-            "detail": "Gajian"
+            "_id": "60808c77f8e54b018c61aff8",
+            "UserId": "60803b1f1a34192140d9a646",
+            "expense": 15000,
+            "detail": "Bayar Cicilan",
+            "createdAt": "2021-04-21T20:35:03.961Z"
         },
         {
-            "_id": "607f1f07fbd6032d305b6b6c",
-            "UserId": "607f0bbfb840f92c84473e1f",
-            "income": 1000000,
-            "detail": "Gajian"
+            "_id": "60808c48a0d8c6392c4d2205",
+            "UserId": "60803b1f1a34192140d9a646",
+            "income": 100000,
+            "detail": "Gajian",
+            "createdAt": "2021-04-21T20:34:16.976Z"
         },
         ...
       ]
@@ -220,7 +227,8 @@ Response:
   "UserId": "string",
   "income": "integer",
   "detail": "string",
-  "_id": "string-id"
+  "_id": "string-id",
+  "createdAt": "date"
 }
 ```
 
@@ -228,10 +236,11 @@ Response:
 
   * **Code:** 200 <br />
     **Content:** `{
-      "UserId": "607f0bbfb840f92c84473e1f",
+      "UserId": "60803b1f1a34192140d9a646",
       "income": 1000000,
-      "detail": "Makan Mekdi",
-      "_id": "607f37d430365837302225ed"
+      "detail": "Gajian",
+      "createdAt": "2021-04-21T20:37:15.931Z",
+      "_id": "60808cfba20df60c14d02324"
     }`
  
 * **Error Response:**
@@ -276,7 +285,8 @@ Response:
   "UserId": "string",
   "expense": "integer",
   "detail": "string",
-  "_id": "string-id"
+  "_id": "string-id",
+  "createdAt": "date"
 }
 ```
 
@@ -284,10 +294,11 @@ Response:
 
   * **Code:** 200 <br />
     **Content:** `{
-      "UserId": "607f0bbfb840f92c84473e1f",
+      "UserId": "60803b1f1a34192140d9a646",
       "expense": 1000000,
       "detail": "Makan KFC",
-      "_id": "607f38a630365837302225ee"
+      "createdAt": "2021-04-21T20:37:51.515Z",
+      "_id": "60808d1fa20df60c14d02325"
     }`
  
 * **Error Response:**

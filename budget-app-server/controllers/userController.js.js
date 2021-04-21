@@ -5,10 +5,14 @@ const { generateToken } = require('../helpers/jwt.js')
 class UserController {
   static async register(req, res, next) {
     try {
-      const { email, password } = req.body
-      if (!email || !password) throw { name: 'error_400_email_password_empty' }
+      const { username, email, password } = req.body
+      if (!username, !email || !password) throw { name: 'error_400_username_email_password_empty' }
       const passwordHashed = hashing(password)
-      const user = await User.insert({ email, password: passwordHashed })
+      const user = await User.insert({username, email, password: passwordHashed })
+      console.log({
+        user: user.ops[0],
+        message: 'Add new User successfully'
+      })
       res.status(201).json({
         user: user.ops[0],
         message: 'Add new User successfully'
@@ -33,7 +37,16 @@ class UserController {
         _id: user._id,
         email: user.email
       })
-      res.status(200).json({ access_token, id: user._id })
+      console.log({
+        access_token, 
+        id: user._id, 
+        username: user.username
+      })
+      res.status(200).json({ 
+        access_token, 
+        id: user._id, 
+        username: user.username
+      })
     } catch (err) {
       next(err)
     }

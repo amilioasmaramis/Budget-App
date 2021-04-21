@@ -4,7 +4,7 @@ const { getDatabase } = require('../config/mongodb')
 class Budget {
   // Read Budget Data
   static readBudget(id) {
-    return getDatabase().collection('Budgets').find({ UserId: id.UserId }).toArray()
+    return getDatabase().collection('Budgets').find({ UserId: id.UserId }).sort({"createdAt": -1}).toArray()
   }  
   // Create budget income
   static createBudgetIncome(budget){
