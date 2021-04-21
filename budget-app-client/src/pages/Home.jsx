@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import Navbar from '../components/Navbar/Navbar'
 import Balance from '../components/Balance'
 import IncomeExpense from '../components/IncomeExpense'
 import TransactionList from '../components/TransactionList'
@@ -27,7 +28,6 @@ export default function Home() {
       totalExpense += Number(budgets[i].expense)
     }
   }
-  console.log(totalIncome , totalExpense, '<home>')
   totalBalance = totalIncome - totalExpense
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export default function Home() {
 
   return (
     <>
+      <Navbar />
       <h2>Budget Application</h2>
       <div className="container">
         <Balance totalBalance={totalBalance} toRupiah={toRupiah} />
