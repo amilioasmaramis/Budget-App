@@ -4,9 +4,14 @@ Budget Application Javascript
 BUDGET APPLICATION is app that track our income, expenses and the balance, and all the data is stored / fetched via REST API to backend server. 
 
 ## Live Url
-
-- Client : sedang dalam deploy client
-- Server : sedang dalam deploy server 
+Deploying on Amazon AWS Client and Server
+- Client : http://budget-app-amilio.s3-website-ap-southeast-1.amazonaws.com
+```
+for example user account:
+- username : user@mail.com
+- password : user
+```
+- Server (API) : http://13.229.72.244:6001
 
 ## Project Specifications
 

@@ -17,11 +17,13 @@ export default function AddTransaction() {
       setOption('')
       setDetail('')
       setAmount(0)
-    } else {
+    } else if(option == "Expense") {
       dispatch(addExpense({ detail, amount }))
       setOption('')
       setDetail('')
       setAmount(0)
+    } else {
+      alert('Inputan harus diisi')
     }
   }
 
