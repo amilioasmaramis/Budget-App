@@ -49,5 +49,7 @@ npm install (important)
 npm start
 
 # Run on http://localhost:3000
+# using:
+1. npm start
 
 ```

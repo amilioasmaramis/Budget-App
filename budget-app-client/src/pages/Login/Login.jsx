@@ -37,7 +37,9 @@ export default function Login() {
   }
 
   const handleSubmitRegister = (e) => {
+    e.preventDefault()
     dispatch(registerUser({username, email, password}))
+    setActive(true)
     setUsername('')
     setEmail('')
     setPassword('')

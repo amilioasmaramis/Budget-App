@@ -4,10 +4,11 @@ This is a Budget App Client using React Framework and HTML CSS
 
 ## Usage
 ```
-npm start
+npm install (important)
+
+# using:
+1. npm start
 
 # Run on http://localhost:3000
-# using:
-
 
 ```
