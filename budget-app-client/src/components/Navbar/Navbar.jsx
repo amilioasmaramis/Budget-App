@@ -16,7 +16,7 @@ export default function Navbar() {
     dispatch(setIsLogin(false))
   }
   return (
-    <header className="header">
+    <header className="header" style={{ backgroundColor: "#d8e3e7"}}>
       <ul>
         <li>Home</li>
         <li onClick={(event) => handleLogout(event)}>Logout</li>

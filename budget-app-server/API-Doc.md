@@ -13,6 +13,7 @@ List of available endpoints:
 - `POST /budget/`
 - `POST /budget/income`
 - `POST /budget/expense`
+- `DELETE /budget/:_id`
 
 ### `POST /users/register`
 
@@ -310,6 +311,47 @@ Response:
     }`
 
   OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{
+        "errorCode": "Internal server error",
+        "message": "Unexpected error."
+    }`
+
+### `DELETE /budget/:id`
+
+> Delete budget by Id 
+
+Request:
+
+- data:
+
+```json
+{
+  "_id": "string-id"
+}
+```
+
+Response:
+
+- status: 201
+- body:
+  ​
+
+```json
+{
+    "message": "string"
+}
+```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** `{
+      "message": "Sucessfully deleted data Budget"
+    }`
+ 
+* **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** `{

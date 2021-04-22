@@ -49,6 +49,17 @@ class BugdetController {
       next(err)
     }
   }
+  // Delete Budget 
+  static async deleteBudget(req, res, next) {
+    try {
+      await Budget.deleteBudget(req.params._id)
+      res.status(200).json({
+        message: `Sucessfully deleted data Budget`
+      })
+    } catch(err) {
+      next(err)
+    }
+  }
 }
 
 module.exports = BugdetController

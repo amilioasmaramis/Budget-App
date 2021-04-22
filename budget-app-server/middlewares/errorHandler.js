@@ -49,7 +49,6 @@ module.exports = (err, req, res, next) => {
       message = 'Input invalid'
       break
 
-
     default:
       break
   }

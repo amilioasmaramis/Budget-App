@@ -14,7 +14,7 @@ import { fetchBudgets } from '../store/actions'
 export default function Home() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const user = localStorage.getItem('username')
+  // const user = localStorage.getItem('username')
   const budgets = useSelector(state => state.budget.budgets)
 
   let totalIncome = 0
@@ -43,7 +43,7 @@ export default function Home() {
   function toRupiah(angka) {
     var rupiah = '';		
     var angkarev = angka.toString().split('').reverse().join('');
-    for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+    for(var i = 0; i < angkarev.length; i++) if(i%3 === 0) rupiah += angkarev.substr(i,3)+'.';
     return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('')+',00';
   }
 

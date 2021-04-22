@@ -26,6 +26,7 @@ export function registerUser(payload) {
         }
       })
     } catch(err) {
+      alert(`${err.response.data.message}`)
       console.log(err.response.data, 'catch error register')
     }
   }
@@ -48,6 +49,7 @@ export function loginUser(payload) {
       dispatch(setIsLogin(true))
     } catch(err) {
       console.log(err.response.data, 'catch error login')
+      alert(`${err.response.data.message}`)
     }
   }
 }
@@ -89,6 +91,7 @@ export function addIncome(payload) {
       console.log(response, 'response dari server, post transactions')
       dispatch(fetchBudgets())
     } catch (err) {
+      alert(`${err.response.data.message}`)
       console.log(err.response.data)
     }
   }
@@ -111,6 +114,27 @@ export function addExpense(payload) {
         },
       })
       console.log(response, 'response dari server, post transactions')
+      dispatch(fetchBudgets())
+    } catch (err) {
+      alert(`${err.response.data.message}`)
+      console.log(err.response.data)
+    }
+  }
+}
+
+export function deleteBudget(payload) {
+  return async (dispatch) => {
+    try {
+      console.log('Send payload to server')
+      
+      const response = await axios({
+        url: '/budget/' + payload.id,
+        method: 'DELETE',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      console.log(response, 'response dari server, delete transactions')
       dispatch(fetchBudgets())
     } catch (err) {
       console.log(err.response.data)

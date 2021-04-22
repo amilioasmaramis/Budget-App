@@ -8,5 +8,6 @@ const authorized = require('../middlewares/authorized.js')
 router.get('/', authentication, authorized, BugdetController.readBudget)
 router.post('/income', authentication, authorized, BugdetController.createBudgetIncome)
 router.post('/expense', authentication, authorized, BugdetController.createBudgetExpense)
+router.delete('/:_id', authentication, authorized, BugdetController.deleteBudget)
 
 module.exports = router
